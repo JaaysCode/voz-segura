@@ -7,6 +7,7 @@ const Navbar = () => {
     <nav className="flex items-center justify-between bg-white p-4 shadow-md">
       <Logo />
       <Categories />
+
     </nav>
   );
 };

@@ -1,8 +1,8 @@
 'use client';
 
 import { usePathname, useSearchParams } from "next/navigation";
-import CategoryBox from "../CategoryBox";
-import Container from "../Container";
+import CategoryBox from "../ui/CategoryBox";
+import Container from "../ui/Container";
 
 export const categories = () => [
     {

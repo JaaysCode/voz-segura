@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 
 export async function login(formData: FormData) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
@@ -26,7 +26,7 @@ export async function login(formData: FormData) {
 }
 
 export async function signup(formData: FormData) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
@@ -54,7 +54,7 @@ export async function signup(formData: FormData) {
 }
 
 export async function signout() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
   if (error) {
     console.log(error);
@@ -65,21 +65,37 @@ export async function signout() {
 }
 
 export async function signInWithGoogle() {
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      queryParams: {
-        access_type: "offline",
-        prompt: "consent",
+  try {
+    const supabase = await createClient();
+    
+    if (!supabase || !supabase.auth) {
+      console.error("Supabase client or auth is undefined");
+      redirect("/error");
+    }
+    
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        queryParams: {
+          access_type: "offline",
+          prompt: "consent",
+        },
       },
-    },
-  });
+    });
 
-  if (error) {
-    console.log(error);
+    if (error) {
+      console.error("OAuth error:", error);
+      redirect("/error");
+    }
+
+    if (!data || !data.url) {
+      console.error("No redirect URL provided by Supabase");
+      redirect("/error");
+    }
+
+    redirect(data.url);
+  } catch (err) {
+    console.error("Unexpected error in signInWithGoogle:", err);
     redirect("/error");
   }
-
-  redirect(data.url);
 }

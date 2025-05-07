@@ -1,6 +1,7 @@
  'use client';
 
 import Logo from "@/components/navbar/Logo";
+import { signup } from "@/lib/auth-action";
 import { useRouter } from "next/navigation";
 
 export default function FormSignUp() {
@@ -27,7 +28,7 @@ export default function FormSignUp() {
                     Sign Up
                 </button>
             </div>
-            <form className="space-y-4 text-white">
+            <form action="" className="space-y-4 text-white">
                 <input
                     type="text"
                     name = "username"
@@ -52,12 +53,14 @@ export default function FormSignUp() {
                     placeholder="Confirm Password"
                     className="w-full p-3 rounded bg-white placeholder-gray-500 border border-black focus:outline-none focus:border-2 focus:border-purple-400"
                 />
-                <button className="w-full text-white py-3 rounded transition bg-[#7A0A9A] hover:bg-[#9B2DCA] focus:outline-none focus:border-2 focus:border-purple-400">
+                <button
+                    formAction = {signup}
+                    className="w-full text-white py-3 rounded transition bg-[#7A0A9A] hover:bg-[#9B2DCA] focus:outline-none focus:border-2 focus:border-purple-400">
                     Sign Up
                 </button>
             </form>
             <p className="text-center text-sm text-black mt-4">
-                Already have an account? <a href="#" className="text-purple-500 hover:underline">Sign In</a>
+                Already have an account? <a href="sign-in" className="text-purple-500 hover:underline">Sign In</a>
             </p>
         </div>
     </div>

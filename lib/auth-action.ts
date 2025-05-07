@@ -64,38 +64,38 @@ export async function signout() {
   redirect("/logout");
 }
 
-export async function signInWithGoogle() {
-  try {
-    const supabase = await createClient();
+// export async function signInWithGoogle() {
+//   try {
+//     const supabase = await createClient();
     
-    if (!supabase || !supabase.auth) {
-      console.error("Supabase client or auth is undefined");
-      redirect("/error");
-    }
+//     if (!supabase || !supabase.auth) {
+//       console.error("Supabase client or auth is undefined");
+//       redirect("/error");
+//     }
     
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        queryParams: {
-          access_type: "offline",
-          prompt: "consent",
-        },
-      },
-    });
+//     const { data, error } = await supabase.auth.signInWithOAuth({
+//       provider: "google",
+//       options: {
+//         queryParams: {
+//           access_type: "offline",
+//           prompt: "consent",
+//         },
+//       },
+//     });
 
-    if (error) {
-      console.error("OAuth error:", error);
-      redirect("/error");
-    }
+//     if (error) {
+//       console.error("OAuth error:", error);
+//       redirect("/error");
+//     }
 
-    if (!data || !data.url) {
-      console.error("No redirect URL provided by Supabase");
-      redirect("/error");
-    }
+//     if (!data || !data.url) {
+//       console.error("No redirect URL provided by Supabase");
+//       redirect("/error");
+//     }
 
-    redirect(data.url);
-  } catch (err) {
-    console.error("Unexpected error in signInWithGoogle:", err);
-    redirect("/error");
-  }
-}
+//     redirect(data.url);
+//   } catch (err) {
+//     console.error("Unexpected error in signInWithGoogle:", err);
+//     redirect("/error");
+//   }
+// }

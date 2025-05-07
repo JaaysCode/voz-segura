@@ -4,6 +4,10 @@ import Logo from "@/components/navbar/Logo";
 import { signup } from "@/lib/auth-action";
 import { useRouter } from "next/navigation";
 
+interface FormSignUpProps {
+    
+}
+
 export default function FormSignUp() {
     const router = useRouter();
 

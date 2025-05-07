@@ -2,11 +2,31 @@
 
 import Logo from "@/components/navbar/Logo";
 import { login } from "@/lib/auth-action";
-import { Sign } from "crypto";
 import { useRouter } from "next/navigation";
 import SignInWithGoogleButton from "./components/SignInWithGoogleButton";
+import React from "react";
 
-export default function FormSignIn() {
+interface FormSignInProps {
+    email: string;
+    setEmail: (email: string) => void; 
+    password: string;   
+    setPassword: (password: string) => void;
+    handleSignIn: () =>Promise<void>;
+}
+
+export default function FormSignIn({
+    email,
+    setEmail,
+    password,
+    setPassword,
+    handleSignIn,
+
+}: FormSignInProps) {
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        handleSignIn();
+    };
     const router = useRouter();
 
     const handleSignUpClick = () => {
@@ -30,25 +50,31 @@ export default function FormSignIn() {
                     Sign Up
                 </button>
             </div>
-            <form action = "" className="space-y-4 text-white">
+            <form onSubmit={handleSubmit} className="space-y-4 text-white">
               
                 <input
                     type="email"
                     name = "email"
                     placeholder="Email"
                     className="w-full p-3 rounded bg-white placeholder-gray-500 border border-black focus:outline-none focus:border-2 focus:border-purple-400"
+                    value={email}
+                    onChange = {(e) => setEmail(e.target.value)}
+                    required
                 />
                 <input
                     type="password"
                     name = "password"
                     placeholder="Password"
                     className="w-full p-3 rounded bg-white placeholder-gray-500 border border-black focus:outline-none focus:border-2 focus:border-purple-400"
+                    value={password}
+                    onChange = {(e) => setPassword(e.target.value)}
+                    required
                 />  
                 
                 <button 
-                    formAction = {login}
+                    type="submit"
                     className="w-full text-white py-3 rounded transition bg-[#7A0A9A] hover:bg-[#9B2DCA] focus:outline-none focus:border-2 focus:border-purple-400">
-                    Sign In
+                    Iniciar Sesión
                 </button>
                 
                 <div className="relative my-4">

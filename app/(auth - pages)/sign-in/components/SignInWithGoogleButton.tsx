@@ -1,11 +1,8 @@
-import { signInWithGoogle } from '@/lib/auth-action';
 import React from 'react';
 
 const SignInWithGoogleButton = () => {
     return (
         <button 
-            type="submit"
-            formAction={signInWithGoogle}
             className="w-full flex justify-center items-center gap-2 bg-white text-black border border-gray-300 py-3 rounded transition hover:bg-gray-300"
         >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48">
